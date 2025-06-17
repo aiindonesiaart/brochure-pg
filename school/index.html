@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Brochure AI Prompt Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4 font-sans">
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6">
+    <h1 class="text-2xl font-bold mb-4 text-center text-blue-800">🎓 School Brochure AI Image Prompt Generator</h1>
+
+    <!-- Input Form -->
+    <div class="grid gap-4">
+
+      <!-- School Name -->
+      <input id="schoolName" placeholder="School Name (e.g. Sekolah Cendekia Mandiri)" class="border p-2 rounded"/>
+
+      <!-- Headline -->
+      <input id="headline" placeholder="Headline (e.g. Sekolah Masa Depan, Untuk Generasi Hebat)" class="border p-2 rounded"/>
+
+      <!-- Folding Style -->
+      <select id="foldingStyle" class="border p-2 rounded">
+        <option value="">-- Select Brochure Folding Style --</option>
+        <option value="trifold brochure">Trifold</option>
+        <option value="bifold brochure">Bifold</option>
+        <option value="booklet brochure">Booklet</option>
+        <option value="one-page flyer">One-page Flyer</option>
+      </select>
+
+      <!-- Theme Style -->
+      <select id="themeStyle" class="border p-2 rounded">
+        <option value="">-- Select Theme Style --</option>
+        <option value="modern minimalist style">Modern Minimalist</option>
+        <option value="flat illustration style">Flat Illustration</option>
+        <option value="tech-education theme with futuristic design">Tech-Education</option>
+        <option value="organic and friendly style">Organic & Friendly</option>
+      </select>
+
+      <!-- Color Scheme -->
+      <input id="colorScheme" placeholder="Color Scheme (e.g. navy blue, yellow, white)" class="border p-2 rounded"/>
+
+      <!-- Visual Elements -->
+      <input id="elements" placeholder="Visual Elements (e.g. smiling students, QR code, icon list)" class="border p-2 rounded"/>
+
+      <!-- Promo Text -->
+      <input id="promoBadge" placeholder="Promo Text (e.g. Beasiswa Hingga 50%)" class="border p-2 rounded"/>
+    </div>
+
+    <!-- Generate Button -->
+    <button onclick="generatePrompt()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded w-full">Generate Prompt</button>
+
+    <!-- Output Section -->
+    <div class="mt-6">
+      <h2 class="text-lg font-semibold mb-2">🖼️ Generated Prompt:</h2>
+      <textarea id="outputPrompt" class="w-full border rounded p-2 h-40" readonly></textarea>
+      <button onclick="copyPrompt()" class="mt-2 text-sm text-white bg-green-500 px-3 py-1 rounded hover:bg-green-600">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    function generatePrompt() {
+      const name = document.getElementById("schoolName").value;
+      const headline = document.getElementById("headline").value;
+      const fold = document.getElementById("foldingStyle").value;
+      const theme = document.getElementById("themeStyle").value;
+      const color = document.getElementById("colorScheme").value;
+      const visual = document.getElementById("elements").value;
+      const promo = document.getElementById("promoBadge").value;
+
+      const prompt = `A well-designed ${fold} for ${name}, styled in a ${theme}, with a clean layout and color scheme of ${color}. It includes visual elements such as ${visual}. The brochure headline reads: "${headline}", and a promo badge says: "${promo}".`;
+
+      document.getElementById("outputPrompt").value = prompt;
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById("outputPrompt");
+      text.select();
+      text.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(text.value);
+      alert("Prompt copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
