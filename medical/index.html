@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Brochure AI Prompt Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow p-6 space-y-6">
+    <h1 class="text-2xl font-bold text-blue-700">🩺 Medical Brochure AI Image Generator</h1>
+
+    <!-- Style & Options -->
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-medium">Design Style</label>
+        <select id="style" class="w-full border rounded p-2">
+          <option>Modern Minimalist</option>
+          <option>Futuristic Tech</option>
+          <option>Wellness & Organic</option>
+          <option>Emergency Focused</option>
+          <option>Family Care</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Layout Format</label>
+        <select id="layout" class="w-full border rounded p-2">
+          <option>Tri-fold</option>
+          <option>Bi-fold</option>
+          <option>Gatefold</option>
+          <option>Z-fold</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Color Scheme</label>
+        <select id="colors" class="w-full border rounded p-2">
+          <option>White, Sky Blue, Soft Grey</option>
+          <option>Dark Navy, Cyan, Silver</option>
+          <option>Pastel Green, Beige, Coral</option>
+          <option>Red, White, Charcoal</option>
+          <option>Royal Blue, White, Yellow</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Headline Text</label>
+        <input id="headline" type="text" class="w-full border rounded p-2" value="Your Health, Our Priority"/>
+      </div>
+    </div>
+
+    <!-- Generate Prompt -->
+    <div>
+      <label class="block font-medium">Generated Prompt</label>
+      <textarea id="promptOutput" class="w-full border rounded p-3 h-48 font-mono" readonly></textarea>
+      <button onclick="copyPrompt()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Copy Prompt</button>
+    </div>
+
+    <button onclick="generatePrompt()" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded text-lg">🎨 Generate AI Prompt</button>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const style = document.getElementById('style').value;
+      const layout = document.getElementById('layout').value;
+      const colors = document.getElementById('colors').value;
+      const headline = document.getElementById('headline').value;
+
+      const prompt = `A ${layout.toLowerCase()} hospital brochure designed in a ${style.toLowerCase()} style, using a color scheme of ${colors.toLowerCase()}. Front panel includes a photo of a smiling doctor and the headline: '${headline}'. Inside panels highlight hospital services using medical icons, a patient care infographic, and contact information. Clean layout, soft lighting, and professional design on a wooden desk mockup.`;
+
+      document.getElementById('promptOutput').value = prompt;
+    }
+
+    function copyPrompt() {
+      const output = document.getElementById('promptOutput');
+      output.select();
+      document.execCommand('copy');
+      alert('Prompt copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
