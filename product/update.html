@@ -13,7 +13,7 @@
       color: #333;
     }
     .container {
-      max-width: 700px;
+      max-width: 900px;
       margin: auto;
       background: white;
       border-radius: 12px;
@@ -68,7 +68,8 @@
 <body>
   <div class="container">
     <h1>🧼 Brochure Design Product AI Image Generator</h1>
-    
+
+    <!-- Basic Info -->
     <label>Product Type</label>
     <input type="text" id="productType" placeholder="e.g. jerrycan"/>
 
@@ -87,9 +88,10 @@
     <label>Tagline</label>
     <input type="text" id="tagline" placeholder="e.g. Bandar Deterjen"/>
 
-    <label>Headline (Optional)</label>
+    <label>Headline</label>
     <input type="text" id="headline" placeholder="e.g. Piring Kinclong, Hati Senang!"/>
 
+    <!-- Design Options -->
     <label>Design Style</label>
     <select id="style">
       <option value="minimalist">Minimalist Clean</option>
@@ -98,6 +100,52 @@
       <option value="eco">Eco Look</option>
     </select>
 
+    <label>Main Color</label>
+    <input type="text" id="mainColor" placeholder="e.g. Lemon Yellow"/>
+
+    <label>Accent Color</label>
+    <input type="text" id="accentColor" placeholder="e.g. Fresh Green"/>
+
+    <label>Background Variation</label>
+    <input type="text" id="backgroundColor" placeholder="e.g. Soft Mint"/>
+
+    <!-- Layout Format -->
+    <label>Layout Format</label>
+    <textarea id="layoutFormat" placeholder="e.g. Front Panel, Inside Left/Center/Right, Back Panel"></textarea>
+
+    <!-- Sections & Visual Elements -->
+    <label>Sections & Visual Elements</label>
+    <textarea id="sections" placeholder="e.g. Hero image, sticker close-up, infographic icons, before–after panel"></textarea>
+
+    <!-- Highlights -->
+    <label>Highlights</label>
+    <textarea id="highlights" placeholder="e.g. Konsentrat Lemon Aktif, Hemat 1 Tutup Botol = 20 Piring"></textarea>
+
+    <!-- Design Tone -->
+    <label>Design Tone</label>
+    <textarea id="tone" placeholder="e.g. Fresh and Clean, Eco-friendly"></textarea>
+
+    <!-- Contact Info -->
+    <label>WhatsApp</label>
+    <input type="text" id="whatsapp" placeholder="e.g. 0812-XXXX-XXXX"/>
+
+    <label>Instagram / TikTok / X</label>
+    <input type="text" id="social" placeholder="e.g. @bandardeterjen"/>
+
+    <label>Website</label>
+    <input type="text" id="website" placeholder="e.g. www.bandardeterjen.id"/>
+
+    <label>Address</label>
+    <input type="text" id="address" placeholder="e.g. Jl. Hijau Lemon No.1, Jakarta"/>
+
+    <!-- Optional -->
+    <label>Optional (Testimonial, Promo, Social Proof)</label>
+    <textarea id="optional" placeholder="e.g. Testimonial from Ibu Rina, Promo 10%, Trusted by 10,000 customers"></textarea>
+
+    <!-- Mockup Suggestions -->
+    <label>Mockup Suggestions</label>
+    <textarea id="mockup" placeholder="e.g. Jerrycan on kitchen counter, lemon slices, natural lighting"></textarea>
+
     <button onclick="generatePrompt()">Generate Prompt</button>
     <div id="output" class="output"></div>
     <button class="copy-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
@@ -105,25 +153,8 @@
 
   <script>
     function generatePrompt() {
-      const productType = document.getElementById('productType').value;
-      const surface = document.getElementById('surface').value;
-      const stickerDetails = document.getElementById('stickerDetails').value;
-      const stickerVisual = document.getElementById('stickerVisual').value;
-      const labelText = document.getElementById('labelText').value;
-      const tagline = document.getElementById('tagline').value;
-      const headline = document.getElementById('headline').value;
-      const style = document.getElementById('style').value;
-
-      const styleText = {
-        minimalist: 'Minimalist brochure design with clean layout and white background',
-        organic: 'Natural brochure design with green gradients and soft shadows',
-        bold: 'Colorful bold brochure design with high contrast and punchy graphics',
-        eco: 'Eco-friendly kraft paper styled brochure design with organic textures'
-      }[style];
-
-      const prompt = `A product brochure featuring a ${surface} ${productType} with a ${stickerDetails} sticker showing ${stickerVisual}. The sticker is labeled "${labelText}" with a tagline "${tagline}" printed below. ${
-        headline ? 'The headline reads "' + headline + '". ' : ''
-      }The brochure is designed in a ${styleText}. Include a mockup of the packaging, visual highlights, and modern promotional layout.`;
+      const get = id => document.getElementById(id).value;
+      const prompt = `A promotional product brochure featuring a ${get('surface')} ${get('productType')} with a ${get('stickerDetails')} sticker that includes ${get('stickerVisual')}. The label reads "${get('labelText')}", and the tagline "${get('tagline')}" is printed below. The headline is: "${get('headline')}".\n\nDesign style: ${get('style')}, using a color scheme with main color: ${get('mainColor')}, accent color: ${get('accentColor')}, and background variation: ${get('backgroundColor')}.\n\nLayout format: ${get('layoutFormat')}.\n\nSections and visual elements: ${get('sections')}.\n\nHighlights: ${get('highlights')}.\n\nDesign tone: ${get('tone')}.\n\nContact Information:\n- WhatsApp: ${get('whatsapp')}\n- Social: ${get('social')}\n- Website: ${get('website')}\n- Address: ${get('address')}\n\nOptional elements: ${get('optional')}\n\nMockup suggestions: ${get('mockup')}\n\nMake the design visually engaging, clean, and appealing for household consumers.`;
 
       document.getElementById('output').innerText = prompt;
     }
