@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brochure AI Prompt Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 p-4">
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6">
+    <h1 class="text-2xl font-bold mb-4">🍽️ Food & Beverage Brochure AI Prompt Generator</h1>
+    
+    <div class="space-y-4">
+      <label class="block">
+        <span class="font-semibold">Brochure Style</span>
+        <select id="style" class="w-full p-2 border rounded">
+          <option value="modern and elegant">Modern & Elegant</option>
+          <option value="minimalist and clean">Minimalist & Clean</option>
+          <option value="rustic and organic">Rustic & Organic</option>
+        </select>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Color Palette</span>
+        <input type="text" id="color" placeholder="e.g. burnt orange, beige, deep red" class="w-full p-2 border rounded">
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Headline</span>
+        <input type="text" id="headline" placeholder="e.g. DELICIOUS FOOD" class="w-full p-2 border rounded">
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Menu Items</span>
+        <textarea id="menu" rows="3" placeholder="e.g. Grilled Chicken, Pasta Primavera, Veggie Burger" class="w-full p-2 border rounded"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Special Offer</span>
+        <input type="text" id="offer" placeholder="e.g. 20% OFF" class="w-full p-2 border rounded">
+      </label>
+
+      <label class="block">
+        <span class="font-semibold">Contact Info</span>
+        <input type="text" id="contact" placeholder="e.g. +123 456 7890, www.website.com" class="w-full p-2 border rounded">
+      </label>
+
+      <button onclick="generatePrompt()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Generate Prompt
+      </button>
+
+      <textarea id="output" rows="10" class="w-full mt-4 p-3 border rounded font-mono" readonly></textarea>
+    </div>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const style = document.getElementById("style").value;
+      const color = document.getElementById("color").value;
+      const headline = document.getElementById("headline").value;
+      const menu = document.getElementById("menu").value;
+      const offer = document.getElementById("offer").value;
+      const contact = document.getElementById("contact").value;
+
+      const prompt = `A trifold brochure for a food and beverage promotion. The design style is ${style}, using a color palette of ${color}. The layout features a bold headline that says "${headline}". Menu items include: ${menu}. Special offer: ${offer}. The right panel includes contact info: ${contact}. The brochure is clean, photo-rich, with a minimal and elegant tone, ready for a restaurant or café promo campaign.`;
+
+      document.getElementById("output").value = prompt;
+    }
+  </script>
+</body>
+</html>
