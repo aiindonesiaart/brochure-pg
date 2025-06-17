@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Brochure AI Image Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #2980b9;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+    }
+    .output {
+      margin-top: 2rem;
+      white-space: pre-wrap;
+      background: #eef;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏡 Property Brochure AI Image Prompt Generator</h1>
+
+    <label for="headline">Headline</label>
+    <input type="text" id="headline" placeholder="e.g., Modern Home For Sale" />
+
+    <label for="price">Price Info</label>
+    <input type="text" id="price" placeholder="e.g., Starting at $1,500,000" />
+
+    <label for="features">Property Features</label>
+    <input type="text" id="features" placeholder="e.g., 3 bedrooms, 2 bathrooms, 2-car garage, 2200 sqft" />
+
+    <label for="description">Property Description</label>
+    <textarea id="description" rows="4" placeholder="Brief description of the house"></textarea>
+
+    <label for="contact">Contact Info</label>
+    <textarea id="contact" rows="2" placeholder="Name, Phone, Website, etc."></textarea>
+
+    <button onclick="generatePrompt()">Generate AI Image Prompt</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const headline = document.getElementById('headline').value;
+      const price = document.getElementById('price').value;
+      const features = document.getElementById('features').value;
+      const description = document.getElementById('description').value;
+      const contact = document.getElementById('contact').value;
+
+      const prompt = `A promotional brochure for a modern home. The design features a clean, professional layout with a navy blue, white, and gold color scheme. A large hero photo of a modern two-story house is prominently shown. The headline reads: "${headline}". A gold badge says: "${price}". Key property info includes: ${features}.\n\nSection: About the Property - ${description}.\n\nContact info: ${contact}.\n\nInclude a small map icon, bold text blocks, real estate icon set (bed, bath, car, square footage), and a QR code. The design tone is elegant, aspirational, and modern.`;
+
+      document.getElementById('output').innerText = prompt;
+    }
+  </script>
+</body>
+</html>
