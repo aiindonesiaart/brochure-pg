@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brochure Design Product AI Image Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f5f7;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      font-size: 1rem;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #27ae60;
+    }
+    .output {
+      margin-top: 20px;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background-color: #3498db;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧼 Brochure Design Product AI Image Generator</h1>
+    
+    <label>Product Type</label>
+    <input type="text" id="productType" placeholder="e.g. jerrycan"/>
+
+    <label>Surface</label>
+    <input type="text" id="surface" placeholder="e.g. plain"/>
+
+    <label>Sticker Shape & Color</label>
+    <input type="text" id="stickerDetails" placeholder="e.g. green square"/>
+
+    <label>Sticker Visual Element</label>
+    <input type="text" id="stickerVisual" placeholder="e.g. slice of lemon"/>
+
+    <label>Label Title</label>
+    <input type="text" id="labelText" placeholder="e.g. Sabun Cuci Piring"/>
+
+    <label>Tagline</label>
+    <input type="text" id="tagline" placeholder="e.g. Bandar Deterjen"/>
+
+    <label>Headline (Optional)</label>
+    <input type="text" id="headline" placeholder="e.g. Piring Kinclong, Hati Senang!"/>
+
+    <label>Design Style</label>
+    <select id="style">
+      <option value="minimalist">Minimalist Clean</option>
+      <option value="organic">Organic Fresh</option>
+      <option value="bold">Bold & Pop</option>
+      <option value="eco">Eco Look</option>
+    </select>
+
+    <button onclick="generatePrompt()">Generate Prompt</button>
+    <div id="output" class="output"></div>
+    <button class="copy-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const productType = document.getElementById('productType').value;
+      const surface = document.getElementById('surface').value;
+      const stickerDetails = document.getElementById('stickerDetails').value;
+      const stickerVisual = document.getElementById('stickerVisual').value;
+      const labelText = document.getElementById('labelText').value;
+      const tagline = document.getElementById('tagline').value;
+      const headline = document.getElementById('headline').value;
+      const style = document.getElementById('style').value;
+
+      const styleText = {
+        minimalist: 'Minimalist brochure design with clean layout and white background',
+        organic: 'Natural brochure design with green gradients and soft shadows',
+        bold: 'Colorful bold brochure design with high contrast and punchy graphics',
+        eco: 'Eco-friendly kraft paper styled brochure design with organic textures'
+      }[style];
+
+      const prompt = `A product brochure featuring a ${surface} ${productType} with a ${stickerDetails} sticker showing ${stickerVisual}. The sticker is labeled "${labelText}" with a tagline "${tagline}" printed below. ${
+        headline ? 'The headline reads "' + headline + '". ' : ''
+      }The brochure is designed in a ${styleText}. Include a mockup of the packaging, visual highlights, and modern promotional layout.`;
+
+      document.getElementById('output').innerText = prompt;
+    }
+
+    function copyPrompt() {
+      const output = document.getElementById('output');
+      navigator.clipboard.writeText(output.innerText).then(() => {
+        alert("Prompt copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
