@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cleaning Brochure AI Prompt Generator</title>
+  <title>Service Brochure AI Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f8f9fa;
       padding: 20px;
-      max-width: 800px;
+      max-width: 1000px;
       margin: auto;
     }
-    h1 {
+    h1, h2 {
       font-size: 24px;
-      margin-bottom: 16px;
     }
     input, textarea, select, button {
       width: 100%;
@@ -24,15 +23,24 @@
       border: 1px solid #ccc;
       border-radius: 6px;
     }
-    .section-checkboxes label {
-      display: block;
-      margin-bottom: 6px;
+    .color-picker {
+      display: flex;
+      gap: 16px;
     }
-    .result {
+    .color-picker label {
+      flex: 1;
+    }
+    .section-box, .contact-box {
       background: #fff;
       padding: 16px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .dynamic-section {
+      border-top: 1px dashed #ccc;
+      padding-top: 12px;
+      margin-top: 12px;
     }
     button {
       background-color: #007bff;
@@ -46,56 +54,140 @@
   </style>
 </head>
 <body>
-  <h1>Cleaning Service Brochure AI Prompt Generator</h1>
-  <label>Headline:</label>
-  <input type="text" id="headline" value="Professional Home Cleaning" />
+  <h1>Cleaning/Laundry Brochure AI Prompt Generator</h1>
 
-  <label>Main Color:</label>
-  <input type="text" id="colorMain" value="Sky Blue" />
+  <label>Choose Service Type:</label>
+  <select id="serviceType">
+    <option value="Cleaning">Cleaning Service</option>
+    <option value="Laundry">Laundry Service</option>
+  </select>
 
-  <label>Accent Color:</label>
-  <input type="text" id="colorAccent" value="Teal" />
+  <button onclick="addCustomService()">Add Custom Service</button>
+  <div id="customServices"></div>
 
-  <label>Design Style:</label>
-  <input type="text" id="style" value="Modern Minimalist" />
-
-  <div class="section-checkboxes">
-    <label><input type="checkbox" id="about" checked /> About Us</label>
-    <label><input type="checkbox" id="services" checked /> Our Services</label>
-    <label><input type="checkbox" id="whyChooseUs" checked /> Why Choose Us</label>
-    <label><input type="checkbox" id="promo" checked /> Promo Banner</label>
-    <label><input type="checkbox" id="contact" checked /> Contact Information</label>
+  <div class="color-picker">
+    <label>Main Color: <input type="color" id="mainColor" value="#00bfff" /></label>
+    <label>Second Color: <input type="color" id="secondColor" value="#20c997" /></label>
+    <label>Third Color: <input type="color" id="thirdColor" value="#ffc107" /></label>
   </div>
 
+  <label>Cover Image Description:</label>
+  <textarea id="coverImage" placeholder="Describe the hero image (e.g. Smiling cleaner in bright kitchen)"></textarea>
+
+  <label>Headline Text:</label>
+  <input type="text" id="headline" placeholder="e.g. Sparkling Clean Every Time" />
+
+  <label>Headline Text Color:</label>
+  <input type="color" id="headlineColor" value="#000000" />
+
+  <label>Headline Text Style:</label>
+  <select id="headlineStyle">
+    <option value="Bold">Bold</option>
+    <option value="Italic">Italic</option>
+    <option value="Regular">Regular</option>
+  </select>
+
+  <div id="sections">
+    <h2>Brochure Sections</h2>
+    <div class="section-box">
+      <label>Section Title:</label>
+      <input type="text" placeholder="e.g. About Us" />
+      <label>Description:</label>
+      <textarea placeholder="Your description here"></textarea>
+      <label>Icon Description (optional):</label>
+      <input type="text" placeholder="e.g. Heart icon" />
+    </div>
+  </div>
+  <button onclick="addSection()">Add Section</button>
+
+  <h2>Optional Promotion</h2>
+  <label>Discount Offer:</label>
+  <input type="text" id="promo" placeholder="e.g. 20% Discount for New Clients" />
+
+  <h2>Contact Information</h2>
+  <label>Position of Contact Info:</label>
+  <select id="contactPosition">
+    <option value="Bottom">Bottom</option>
+    <option value="Top">Top</option>
+  </select>
+  <div id="contacts">
+    <div class="contact-box">
+      <label>Type (e.g. WhatsApp, Website):</label>
+      <input type="text" placeholder="e.g. WhatsApp" />
+      <label>Value:</label>
+      <input type="text" placeholder="e.g. +628123456789" />
+    </div>
+  </div>
+  <button onclick="addContact()">Add Contact Method</button>
+
+  <br />
   <button onclick="generatePrompt()">Generate Prompt</button>
 
-  <div class="result" id="resultContainer" style="display:none;">
+  <div class="section-box" id="resultContainer" style="display:none;">
     <h2>Generated Prompt</h2>
-    <textarea id="resultText" rows="8" readonly></textarea>
+    <textarea id="resultText" rows="10" readonly></textarea>
     <button onclick="copyPrompt()">Copy to Clipboard</button>
   </div>
 
   <script>
+    function addSection() {
+      const container = document.createElement("div");
+      container.className = "section-box dynamic-section";
+      container.innerHTML = `
+        <label>Section Title:</label>
+        <input type="text" placeholder="e.g. Services" />
+        <label>Description:</label>
+        <textarea placeholder="Your description here"></textarea>
+        <label>Icon Description (optional):</label>
+        <input type="text" placeholder="e.g. Mop icon" />
+      `;
+      document.getElementById("sections").appendChild(container);
+    }
+
+    function addCustomService() {
+      const div = document.createElement("div");
+      div.innerHTML = '<input type="text" placeholder="Custom Service Title" />';
+      document.getElementById("customServices").appendChild(div);
+    }
+
+    function addContact() {
+      const box = document.createElement("div");
+      box.className = "contact-box";
+      box.innerHTML = `
+        <label>Type (e.g. Instagram):</label>
+        <input type="text" placeholder="e.g. Instagram" />
+        <label>Value:</label>
+        <input type="text" placeholder="@yourhandle" />
+      `;
+      document.getElementById("contacts").appendChild(box);
+    }
+
     function generatePrompt() {
+      const type = document.getElementById("serviceType").value;
+      const mainColor = document.getElementById("mainColor").value;
+      const secondColor = document.getElementById("secondColor").value;
+      const thirdColor = document.getElementById("thirdColor").value;
       const headline = document.getElementById("headline").value;
-      const colorMain = document.getElementById("colorMain").value;
-      const colorAccent = document.getElementById("colorAccent").value;
-      const style = document.getElementById("style").value;
+      const headlineColor = document.getElementById("headlineColor").value;
+      const headlineStyle = document.getElementById("headlineStyle").value;
+      const coverImage = document.getElementById("coverImage").value;
+      const promo = document.getElementById("promo").value;
+      const contactPosition = document.getElementById("contactPosition").value;
 
-      const about = document.getElementById("about").checked;
-      const services = document.getElementById("services").checked;
-      const whyChooseUs = document.getElementById("whyChooseUs").checked;
-      const promo = document.getElementById("promo").checked;
-      const contact = document.getElementById("contact").checked;
+      const sections = [...document.querySelectorAll("#sections .section-box")].map(sec => {
+        const title = sec.querySelector("input").value;
+        const desc = sec.querySelector("textarea").value;
+        const icon = sec.querySelectorAll("input")[1]?.value;
+        return `Title: ${title}, Description: ${desc}${icon ? ", Icon: " + icon : ""}`;
+      });
 
-      let sections = [];
-      if (about) sections.push("About Us");
-      if (services) sections.push("Our Services");
-      if (whyChooseUs) sections.push("Why Choose Us");
-      if (promo) sections.push("Promo Banner (e.g. 20% off)");
-      if (contact) sections.push("Contact Information");
+      const contacts = [...document.querySelectorAll("#contacts .contact-box")].map(box => {
+        const type = box.querySelectorAll("input")[0].value;
+        const value = box.querySelectorAll("input")[1].value;
+        return `${type}: ${value}`;
+      });
 
-      const prompt = `A brochure for a cleaning service in a ${style} style, using a color palette of ${colorMain} as the main color and ${colorAccent} as the accent. The layout features a friendly image of a cleaner wiping a white kitchen counter. The headline reads \"${headline}\". Sections include: ${sections.join(", ")}. Layout is clean, modern, and responsive.`;
+      const prompt = `A brochure for a ${type} in a custom layout. Colors used: Main - ${mainColor}, Second - ${secondColor}, Third - ${thirdColor}. Cover image: ${coverImage}. Headline: '${headline}' styled as ${headlineStyle} in color ${headlineColor}. Sections: ${sections.join(" | ")}. Promotion: ${promo}. Contact Info (${contactPosition}): ${contacts.join(", ")}.`;
 
       document.getElementById("resultText").value = prompt;
       document.getElementById("resultContainer").style.display = "block";
