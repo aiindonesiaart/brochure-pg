@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cleaning Brochure AI Prompt Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .section-checkboxes label {
+      display: block;
+      margin-bottom: 6px;
+    }
+    .result {
+      background: #fff;
+      padding: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cleaning Service Brochure AI Prompt Generator</h1>
+  <label>Headline:</label>
+  <input type="text" id="headline" value="Professional Home Cleaning" />
+
+  <label>Main Color:</label>
+  <input type="text" id="colorMain" value="Sky Blue" />
+
+  <label>Accent Color:</label>
+  <input type="text" id="colorAccent" value="Teal" />
+
+  <label>Design Style:</label>
+  <input type="text" id="style" value="Modern Minimalist" />
+
+  <div class="section-checkboxes">
+    <label><input type="checkbox" id="about" checked /> About Us</label>
+    <label><input type="checkbox" id="services" checked /> Our Services</label>
+    <label><input type="checkbox" id="whyChooseUs" checked /> Why Choose Us</label>
+    <label><input type="checkbox" id="promo" checked /> Promo Banner</label>
+    <label><input type="checkbox" id="contact" checked /> Contact Information</label>
+  </div>
+
+  <button onclick="generatePrompt()">Generate Prompt</button>
+
+  <div class="result" id="resultContainer" style="display:none;">
+    <h2>Generated Prompt</h2>
+    <textarea id="resultText" rows="8" readonly></textarea>
+    <button onclick="copyPrompt()">Copy to Clipboard</button>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const headline = document.getElementById("headline").value;
+      const colorMain = document.getElementById("colorMain").value;
+      const colorAccent = document.getElementById("colorAccent").value;
+      const style = document.getElementById("style").value;
+
+      const about = document.getElementById("about").checked;
+      const services = document.getElementById("services").checked;
+      const whyChooseUs = document.getElementById("whyChooseUs").checked;
+      const promo = document.getElementById("promo").checked;
+      const contact = document.getElementById("contact").checked;
+
+      let sections = [];
+      if (about) sections.push("About Us");
+      if (services) sections.push("Our Services");
+      if (whyChooseUs) sections.push("Why Choose Us");
+      if (promo) sections.push("Promo Banner (e.g. 20% off)");
+      if (contact) sections.push("Contact Information");
+
+      const prompt = `A brochure for a cleaning service in a ${style} style, using a color palette of ${colorMain} as the main color and ${colorAccent} as the accent. The layout features a friendly image of a cleaner wiping a white kitchen counter. The headline reads \"${headline}\". Sections include: ${sections.join(", ")}. Layout is clean, modern, and responsive.`;
+
+      document.getElementById("resultText").value = prompt;
+      document.getElementById("resultContainer").style.display = "block";
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById("resultText").value;
+      navigator.clipboard.writeText(text);
+      alert("Prompt copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
