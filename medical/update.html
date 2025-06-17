@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Brochure AI Image Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+  <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 space-y-6">
+    <h1 class="text-2xl font-bold text-blue-700">🩺 Medical Brochure AI Image Generator</h1>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-medium">Design Style</label>
+        <select id="style" class="w-full border rounded p-2">
+          <option>Modern Minimalist</option>
+          <option>Futuristic Tech</option>
+          <option>Wellness & Organic</option>
+          <option>Emergency Focused</option>
+          <option>Family Care</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Layout Format</label>
+        <select id="layout" class="w-full border rounded p-2">
+          <option>Tri-fold</option>
+          <option>Bi-fold</option>
+          <option>Gatefold</option>
+          <option>Z-fold</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Color Scheme</label>
+        <select id="colors" class="w-full border rounded p-2">
+          <option>White, Sky Blue, Soft Grey</option>
+          <option>Dark Navy, Cyan, Silver</option>
+          <option>Pastel Green, Beige, Coral</option>
+          <option>Red, White, Charcoal</option>
+          <option>Royal Blue, White, Yellow</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Headline Text</label>
+        <input id="headline" type="text" class="w-full border rounded p-2" value="Your Health, Our Priority"/>
+      </div>
+      <div>
+        <label class="block font-medium">Icons Used</label>
+        <input id="icons" type="text" class="w-full border rounded p-2" value="stethoscope, heart, ambulance, hospital bed"/>
+      </div>
+      <div>
+        <label class="block font-medium">Infographic Description</label>
+        <input id="infographics" type="text" class="w-full border rounded p-2" value="Patient care steps, from appointment to recovery"/>
+      </div>
+      <div>
+        <label class="block font-medium">Section: About Us</label>
+        <input id="about" type="text" class="w-full border rounded p-2" value="Introduction to hospital values, history, and mission."/>
+      </div>
+      <div>
+        <label class="block font-medium">Section: Our Services</label>
+        <input id="services" type="text" class="w-full border rounded p-2" value="Primary care, cardiology, emergency, and patient care"/>
+      </div>
+      <div>
+        <label class="block font-medium">Section: Meet Our Doctors</label>
+        <input id="doctors" type="text" class="w-full border rounded p-2" value="Photos and bios of featured doctors"/>
+      </div>
+      <div>
+        <label class="block font-medium">Section: Emergency Contact</label>
+        <input id="emergency" type="text" class="w-full border rounded p-2" value="Phone number, map, and QR code"/>
+      </div>
+      <div>
+        <label class="block font-medium">Brochure Placement</label>
+        <select id="placement" class="w-full border rounded p-2">
+          <option>Wooden Desk</option>
+          <option>Marble Table</option>
+          <option>Fabric Background</option>
+          <option>Medical Office Desk</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Lighting Style</label>
+        <select id="lighting" class="w-full border rounded p-2">
+          <option>Soft Light</option>
+          <option>Studio Light</option>
+          <option>Top Light</option>
+          <option>Natural Daylight</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Generated Prompt -->
+    <div>
+      <label class="block font-medium">Generated Prompt</label>
+      <textarea id="promptOutput" class="w-full border rounded p-3 h-52 font-mono" readonly></textarea>
+      <button onclick="copyPrompt()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Copy Prompt</button>
+    </div>
+
+    <button onclick="generatePrompt()" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded text-lg">🎨 Generate AI Prompt</button>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const style = document.getElementById('style').value;
+      const layout = document.getElementById('layout').value;
+      const colors = document.getElementById('colors').value;
+      const headline = document.getElementById('headline').value;
+      const icons = document.getElementById('icons').value;
+      const infographics = document.getElementById('infographics').value;
+      const about = document.getElementById('about').value;
+      const services = document.getElementById('services').value;
+      const doctors = document.getElementById('doctors').value;
+      const emergency = document.getElementById('emergency').value;
+      const placement = document.getElementById('placement').value;
+      const lighting = document.getElementById('lighting').value;
+
+      const prompt = `A ${layout.toLowerCase()} medical brochure in a ${style.toLowerCase()} design, using ${colors.toLowerCase()} colors. Front panel shows a smiling doctor with the headline: '${headline}'. Inside includes icons (${icons}), an infographic about ${infographics}. Sections include: About Us (${about}), Our Services (${services}), Meet Our Doctors (${doctors}), and Emergency Contact (${emergency}). The brochure is placed on a ${placement.toLowerCase()}, illuminated by ${lighting.toLowerCase()}. Clean, professional, and clear layout.`;
+
+      document.getElementById('promptOutput').value = prompt;
+    }
+
+    function copyPrompt() {
+      const output = document.getElementById('promptOutput');
+      output.select();
+      document.execCommand('copy');
+      alert('Prompt copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
