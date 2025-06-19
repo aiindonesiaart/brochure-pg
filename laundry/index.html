@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brochure Image AI Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .output {
+      margin-top: 30px;
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 15px;
+      border-left: 4px solid #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Brochure Image AI Prompt Generator</h2>
+    <label>Business Type</label>
+    <input type="text" id="business" placeholder="e.g., Laundry Service">
+
+    <label>Design Style</label>
+    <input type="text" id="style" placeholder="e.g., Minimalist and Clean">
+
+    <label>Color Scheme</label>
+    <input type="text" id="colors" placeholder="e.g., Blue, White, Grey">
+
+    <label>Headline</label>
+    <input type="text" id="headline" placeholder="e.g., Crisp. Clean. Convenient.">
+
+    <label>Sections</label>
+    <textarea id="sections" rows="3" placeholder="e.g., Wash & Fold, Dry Cleaning, Pricing, Contact Info"></textarea>
+
+    <label>Visual Elements</label>
+    <input type="text" id="visuals" placeholder="e.g., Folded towels, service icons">
+
+    <label>Highlight Message</label>
+    <input type="text" id="highlight" placeholder="e.g., 20% OFF your first order">
+
+    <label>Design Tone</label>
+    <input type="text" id="tone" placeholder="e.g., Professional and Fresh">
+
+    <label>Layout Format</label>
+    <input type="text" id="format" placeholder="e.g., Single-page vertical layout">
+
+    <label>Contact Info</label>
+    <input type="text" id="contact" placeholder="e.g., Phone, Website, Address">
+
+    <button onclick="generatePrompt()">Generate Prompt</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const business = document.getElementById('business').value;
+      const style = document.getElementById('style').value;
+      const colors = document.getElementById('colors').value;
+      const headline = document.getElementById('headline').value;
+      const sections = document.getElementById('sections').value;
+      const visuals = document.getElementById('visuals').value;
+      const highlight = document.getElementById('highlight').value;
+      const tone = document.getElementById('tone').value;
+      const format = document.getElementById('format').value;
+      const contact = document.getElementById('contact').value;
+
+      const prompt = `Generate a brochure design for a ${business}.
+The style is ${style}, using a color scheme of ${colors}.
+The layout includes:
+- A headline that says "${headline}"
+- Sections for: ${sections}
+- Visual elements: ${visuals}
+- Text should use modern, clean typography.
+
+Highlight: ${highlight}
+
+Design tone: ${tone}
+
+The brochure should be arranged in a ${format}.
+Include contact info like ${contact}, placed at the bottom.`;
+
+      document.getElementById('output').textContent = prompt;
+    }
+  </script>
+</body>
+</html>
