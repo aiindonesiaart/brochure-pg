@@ -156,6 +156,8 @@
     <textarea id="outputPrompt" readonly></textarea>
   </div>
 
+  <textarea id="outputPrompt" readonly></textarea>
+<button onclick="copyPrompt()">Copy Prompt</button>
   <script>
     function addText() {
       const container = document.createElement("div");
@@ -203,52 +205,48 @@
     }
 
     function generatePrompt() {
-      const business = document.getElementById("businessType").value;
-      const style = document.getElementById("designStyle").value;
-      const colors = document.getElementById("colorScheme").value;
-      const layout = document.getElementById("layoutFormat").value;
-      const placement = document.getElementById("placement").value;
-      const lighting = document.getElementById("lighting").value;
-      const cover = document.getElementById("coverImageDesc").value;
+  const business = document.getElementById("businessType").value;
+  const style = document.getElementById("designStyle").value;
+  const colors = document.getElementById("colorScheme").value;
+  const layout = document.getElementById("layoutFormat").value;
+  const placement = document.getElementById("placement").value;
+  const lighting = document.getElementById("lighting").value;
+  const cover = document.getElementById("coverImageDesc").value;
 
-      // Text sections
-      const texts = [...document.querySelectorAll("#textSections .section-box")].map(div => {
-        const type = div.querySelector("select").value;
-        const content = div.querySelector("input[type='text']").value;
-        const color = div.querySelectorAll("input")[1]?.value || "";
-        return `${type.charAt(0).toUpperCase() + type.slice(1)}: "${content}" (Color: ${color})`;
-      });
+  // Process Text Elements
+  const texts = [...document.querySelectorAll("#textSections .section-box")].map(div => {
+    const type = div.querySelector("select").value;
+    const content = div.querySelector("input[type='text']").value;
+    const color = div.querySelectorAll("input")[1]?.value || "";
+    return `${type.charAt(0).toUpperCase() + type.slice(1)}: "${content}" with ${color} color text`;
+  });
 
-      // Content sections
-      const sections = [...document.querySelectorAll("#contentSections .section-box")].map(div => {
-        const title = div.querySelector("input").value;
-        const desc = div.querySelector("textarea").value;
-        const icon = div.querySelectorAll("input")[1]?.value || "";
-        return `${title}: ${desc}${icon ? `, Icon: ${icon}` : ""}`;
-      });
+  // Process Content Sections
+  const sections = [...document.querySelectorAll("#contentSections .section-box")].map(div => {
+    const title = div.querySelector("input").value;
+    const desc = div.querySelector("textarea").value;
+    const icon = div.querySelectorAll("input")[1]?.value || "";
+    return `${title}: ${desc}${icon ? `, Icon: ${icon}` : ""}`;
+  });
 
-      // Contacts
-      const contacts = [...document.querySelectorAll("#contactInfos .section-box")].map(div => {
-        const type = div.querySelectorAll("input")[0].value;
-        const val = div.querySelectorAll("input")[1].value;
-        return `${type}: ${val}`;
-      });
+  // Process Contact Info
+  const contactPos = document.getElementById("contactPosition").value;
+  const contacts = [...document.querySelectorAll("#contactInfos .section-box")].map(div => {
+    const type = div.querySelectorAll("input")[0].value;
+    const val = div.querySelectorAll("input")[1].value;
+    return `${type}: ${val}`;
+  });
 
-      const contactPos = document.getElementById("contactPosition").value;
+  const finalPrompt = `Create a ${layout} brochure for a ${business} with design style ${style}, using a color scheme of ${colors}. The brochure contains cover image description as ${cover}, ${texts.join("; ") || "None"}. It has sections: ${sections.join("; ") || "None"}. Contact info in ${contactPos.toLowerCase()} position: ${contacts.join(", ") || "None"}. The brochure placed in ${placement}, ${lighting}, professional design, clean typography, and balanced layout.`;
 
-      const prompt = `A brochure for a ${business}.
-Design style: ${style}, using a color scheme of ${colors}.
-Layout: ${layout}.
-Placement: ${placement}.
-Lighting: ${lighting}.
-Cover image description: ${cover}.
-Text elements: ${texts.join("; ") || "None"}.
-Content sections: ${sections.join("; ") || "None"}.
-Contact info (${contactPos}): ${contacts.join(", ") || "None"}.
-Professional design, clean typography, and balanced layout.`;
-
-      document.getElementById("outputPrompt").value = prompt;
-    }
+  document.getElementById("outputPrompt").value = finalPrompt;
+}
+    function copyPrompt() {
+  const output = document.getElementById("outputPrompt");
+  output.select();
+  document.execCommand("copy");
+  alert("Prompt copied to clipboard!");
+}
   </script>
 </body>
 </html>
