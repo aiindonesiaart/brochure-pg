@@ -1,124 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brochure Image AI Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .output {
-      margin-top: 30px;
-      white-space: pre-wrap;
-      background: #f9f9f9;
-      padding: 15px;
-      border-left: 4px solid #007bff;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brochure AI Prompt Generator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h2>Brochure Image AI Prompt Generator</h2>
-    <label>Business Type</label>
-    <input type="text" id="business" placeholder="e.g., Laundry Service">
+  <div class="app-container">
+    <h1>📄 Brochure AI Image Generator</h1>
 
-    <label>Design Style</label>
-    <input type="text" id="style" placeholder="e.g., Minimalist and Clean">
+    <!-- Business Type -->
+    <label>Business Type:</label>
+    <input type="text" id="businessType" list="businessTypes" placeholder="e.g., Laundry Service" />
+    <datalist id="businessTypes">
+      <option value="Default Business">
+      <option value="Laundry Service">
+      <option value="Cleaning Service">
+      <option value="Food & Beverage">
+      <option value="Fashion Brand">
+      <option value="Medical Clinic">
+      <option value="Real Estate Property">
+      <option value="School">
+    </datalist>
 
-    <label>Color Scheme</label>
-    <input type="text" id="colors" placeholder="e.g., Blue, White, Grey">
+    <!-- Design Style -->
+    <label>Design Style:</label>
+    <input type="text" id="designStyle" list="designStyles" placeholder="e.g., Minimalist Chic" />
+    <datalist id="designStyles">
+      <option value="Minimalist Chic">
+      <option value="Bold & Vibrant">
+      <option value="Editorial / Vogue Style">
+      <option value="Digital Glitch / Futuristic">
+    </datalist>
 
-    <label>Headline</label>
-    <input type="text" id="headline" placeholder="e.g., Crisp. Clean. Convenient.">
+    <!-- Color Scheme -->
+    <label>Color Scheme:</label>
+    <input type="text" id="colorScheme" list="colorSchemes" placeholder="e.g., Black, White, Beige" />
+    <datalist id="colorSchemes">
+      <option value="Black, White, Beige">
+      <option value="Hot Pink, Electric Blue, Yellow">
+      <option value="Monochrome + Deep Burgundy">
+      <option value="Neon Green, Purple, Cyberpunk Black">
+    </datalist>
 
-    <label>Sections</label>
-    <textarea id="sections" rows="3" placeholder="e.g., Wash & Fold, Dry Cleaning, Pricing, Contact Info"></textarea>
+    <!-- Layout -->
+    <label>Layout Format:</label>
+    <input type="text" id="layoutFormat" list="layouts" placeholder="e.g., Trifold" />
+    <datalist id="layouts">
+      <option value="Trifold">
+      <option value="Z-Fold">
+      <option value="Bi-Fold">
+      <option value="Booklet">
+      <option value="One-page Flyer">
+    </datalist>
 
-    <label>Visual Elements</label>
-    <input type="text" id="visuals" placeholder="e.g., Folded towels, service icons">
+    <!-- Placement -->
+    <label>Placement:</label>
+    <input type="text" id="placement" list="placements" placeholder="e.g., Lying on fabric" />
+    <datalist id="placements">
+      <option value="Lying on fabric">
+      <option value="Studio setup">
+      <option value="Wooden Desk">
+      <option value="Marble Table">
+      <option value="Office Desk">
+    </datalist>
 
-    <label>Highlight Message</label>
-    <input type="text" id="highlight" placeholder="e.g., 20% OFF your first order">
+    <!-- Lighting -->
+    <label>Lighting Style:</label>
+    <input type="text" id="lighting" list="lightings" placeholder="e.g., Soft Light" />
+    <datalist id="lightings">
+      <option value="Soft Light">
+      <option value="Studio Light">
+      <option value="Top Light">
+      <option value="Natural Daylight">
+    </datalist>
 
-    <label>Design Tone</label>
-    <input type="text" id="tone" placeholder="e.g., Professional and Fresh">
+    <!-- Add Text Section -->
+    <button onclick="addText()">+ Add Text</button>
+    <div id="textSections"></div>
 
-    <label>Layout Format</label>
-    <input type="text" id="format" placeholder="e.g., Single-page vertical layout">
+    <!-- Cover Image Description -->
+    <label>Cover Image Description:</label>
+    <textarea id="coverImageDesc" rows="2" placeholder="Describe the hero image..."></textarea>
 
-    <label>Contact Info</label>
-    <input type="text" id="contact" placeholder="e.g., Phone, Website, Address">
+    <!-- Add Content Section -->
+    <button onclick="addContentSection()">+ Add Content Section</button>
+    <div id="contentSections"></div>
 
-    <button onclick="generatePrompt()">Generate Prompt</button>
+    <!-- Contact Info -->
+    <label>Contact Info Position:</label>
+    <select id="contactPosition">
+      <option value="Top">Top</option>
+      <option value="Bottom">Bottom</option>
+    </select>
+    <button onclick="addContactInfo()">+ Add Contact Info</button>
+    <div id="contactInfos"></div>
 
-    <div class="output" id="output"></div>
+    <!-- Generate Button -->
+    <button onclick="generatePrompt()" class="btn-generate">Generate Prompt</button>
+
+    <!-- Output Area -->
+    <div class="prompt-output">
+      <h3>AI Prompt:</h3>
+      <textarea id="outputPrompt" readonly></textarea>
+      <button onclick="copyPrompt()" class="btn-copy">Copy Prompt</button>
+    </div>
   </div>
 
-  <script>
-    function generatePrompt() {
-      const business = document.getElementById('business').value;
-      const style = document.getElementById('style').value;
-      const colors = document.getElementById('colors').value;
-      const headline = document.getElementById('headline').value;
-      const sections = document.getElementById('sections').value;
-      const visuals = document.getElementById('visuals').value;
-      const highlight = document.getElementById('highlight').value;
-      const tone = document.getElementById('tone').value;
-      const format = document.getElementById('format').value;
-      const contact = document.getElementById('contact').value;
-
-      const prompt = `Generate a brochure design for a ${business}.
-The style is ${style}, using a color scheme of ${colors}.
-The layout includes:
-- A headline that says "${headline}"
-- Sections for: ${sections}
-- Visual elements: ${visuals}
-- Text should use modern, clean typography.
-
-Highlight: ${highlight}
-
-Design tone: ${tone}
-
-The brochure should be arranged in a ${format}.
-Include contact info like ${contact}, placed at the bottom.`;
-
-      document.getElementById('output').textContent = prompt;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
