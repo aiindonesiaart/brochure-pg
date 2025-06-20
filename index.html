@@ -4,14 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brochure AI Prompt Generator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .section-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    #outputPrompt {
+      width: 100%;
+      height: 200px;
+      margin-top: 1rem;
+      padding: 1rem;
+      font-family: monospace;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+  </style>
 </head>
 <body>
-  <div class="app-container">
+  <div class="container">
     <h1>📄 Brochure AI Image Generator</h1>
 
     <!-- Business Type -->
-    <label>Business Type:</label>
+    <label>Business Type</label>
     <input type="text" id="businessType" list="businessTypes" placeholder="e.g., Laundry Service" />
     <datalist id="businessTypes">
       <option value="Default Business">
@@ -25,7 +76,7 @@
     </datalist>
 
     <!-- Design Style -->
-    <label>Design Style:</label>
+    <label>Design Style</label>
     <input type="text" id="designStyle" list="designStyles" placeholder="e.g., Minimalist Chic" />
     <datalist id="designStyles">
       <option value="Minimalist Chic">
@@ -35,7 +86,7 @@
     </datalist>
 
     <!-- Color Scheme -->
-    <label>Color Scheme:</label>
+    <label>Color Scheme</label>
     <input type="text" id="colorScheme" list="colorSchemes" placeholder="e.g., Black, White, Beige" />
     <datalist id="colorSchemes">
       <option value="Black, White, Beige">
@@ -45,7 +96,7 @@
     </datalist>
 
     <!-- Layout -->
-    <label>Layout Format:</label>
+    <label>Layout Format</label>
     <input type="text" id="layoutFormat" list="layouts" placeholder="e.g., Trifold" />
     <datalist id="layouts">
       <option value="Trifold">
@@ -56,18 +107,19 @@
     </datalist>
 
     <!-- Placement -->
-    <label>Placement:</label>
+    <label>Placement</label>
     <input type="text" id="placement" list="placements" placeholder="e.g., Lying on fabric" />
     <datalist id="placements">
       <option value="Lying on fabric">
       <option value="Studio setup">
       <option value="Wooden Desk">
       <option value="Marble Table">
+      <option value="Fabric Background">
       <option value="Office Desk">
     </datalist>
 
     <!-- Lighting -->
-    <label>Lighting Style:</label>
+    <label>Lighting Style</label>
     <input type="text" id="lighting" list="lightings" placeholder="e.g., Soft Light" />
     <datalist id="lightings">
       <option value="Soft Light">
@@ -98,16 +150,105 @@
     <div id="contactInfos"></div>
 
     <!-- Generate Button -->
-    <button onclick="generatePrompt()" class="btn-generate">Generate Prompt</button>
+    <button onclick="generatePrompt()" style="margin-top: 1rem;">Generate Prompt</button>
 
     <!-- Output Area -->
-    <div class="prompt-output">
-      <h3>AI Prompt:</h3>
-      <textarea id="outputPrompt" readonly></textarea>
-      <button onclick="copyPrompt()" class="btn-copy">Copy Prompt</button>
-    </div>
+    <textarea id="outputPrompt" readonly></textarea>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function addText() {
+      const container = document.createElement("div");
+      container.className = "section-box";
+      container.innerHTML = `
+        <label>Select Text Type</label>
+        <select>
+          <option value="headline">Headline</option>
+          <option value="highlight">Highlight</option>
+          <option value="tagline">Tagline</option>
+          <option value="body">Body Text</option>
+        </select>
+        <label>Text Content</label>
+        <input type="text" placeholder="Enter text content here" />
+        <label>Text Color</label>
+        <input type="text" placeholder="e.g., #FF0000 or Red" />
+      `;
+      document.getElementById("textSections").appendChild(container);
+    }
+
+    function addContentSection() {
+      const container = document.createElement("div");
+      container.className = "section-box";
+      container.innerHTML = `
+        <label>Title</label>
+        <input type="text" placeholder="e.g., About Us" />
+        <label>Description</label>
+        <textarea placeholder="Write description..."></textarea>
+        <label>Icon Description (optional)</label>
+        <input type="text" placeholder="e.g., Heart icon" />
+      `;
+      document.getElementById("contentSections").appendChild(container);
+    }
+
+    function addContactInfo() {
+      const container = document.createElement("div");
+      container.className = "section-box";
+      container.innerHTML = `
+        <label>Contact Type (e.g., Phone, Email)</label>
+        <input type="text" placeholder="e.g., WhatsApp" />
+        <label>Contact Value</label>
+        <input type="text" placeholder="e.g., +123456789" />
+      `;
+      document.getElementById("contactInfos").appendChild(container);
+    }
+
+    function generatePrompt() {
+      const business = document.getElementById("businessType").value;
+      const style = document.getElementById("designStyle").value;
+      const colors = document.getElementById("colorScheme").value;
+      const layout = document.getElementById("layoutFormat").value;
+      const placement = document.getElementById("placement").value;
+      const lighting = document.getElementById("lighting").value;
+      const cover = document.getElementById("coverImageDesc").value;
+
+      // Text sections
+      const texts = [...document.querySelectorAll("#textSections .section-box")].map(div => {
+        const type = div.querySelector("select").value;
+        const content = div.querySelector("input[type='text']").value;
+        const color = div.querySelectorAll("input")[1]?.value || "";
+        return `${type.charAt(0).toUpperCase() + type.slice(1)}: "${content}" (Color: ${color})`;
+      });
+
+      // Content sections
+      const sections = [...document.querySelectorAll("#contentSections .section-box")].map(div => {
+        const title = div.querySelector("input").value;
+        const desc = div.querySelector("textarea").value;
+        const icon = div.querySelectorAll("input")[1]?.value || "";
+        return `${title}: ${desc}${icon ? `, Icon: ${icon}` : ""}`;
+      });
+
+      // Contacts
+      const contacts = [...document.querySelectorAll("#contactInfos .section-box")].map(div => {
+        const type = div.querySelectorAll("input")[0].value;
+        const val = div.querySelectorAll("input")[1].value;
+        return `${type}: ${val}`;
+      });
+
+      const contactPos = document.getElementById("contactPosition").value;
+
+      const prompt = `A brochure for a ${business}.
+Design style: ${style}, using a color scheme of ${colors}.
+Layout: ${layout}.
+Placement: ${placement}.
+Lighting: ${lighting}.
+Cover image description: ${cover}.
+Text elements: ${texts.join("; ") || "None"}.
+Content sections: ${sections.join("; ") || "None"}.
+Contact info (${contactPos}): ${contacts.join(", ") || "None"}.
+Professional design, clean typography, and balanced layout.`;
+
+      document.getElementById("outputPrompt").value = prompt;
+    }
+  </script>
 </body>
 </html>
