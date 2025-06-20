@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f9fc;
+  padding: 20px;
+  margin: 0;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.prompt-output {
+  margin-top: 2rem;
+}
+
+#outputPrompt {
+  width: 100%;
+  height: 150px;
+  resize: vertical;
+  font-family: monospace;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-generate,
+.btn-copy {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.btn-copy {
+  background-color: #28a745;
+}
+
+.btn-generate:hover {
+  background-color: #0056b3;
+}
+
+.btn-copy:hover {
+  background-color: #218838;
+}
